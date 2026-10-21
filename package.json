@@ -16,6 +16,9 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json && tsc --noEmit -p tsconfig.node.json",
     "test": "vitest run",
     "test:watch": "vitest",
+    "taste:draw": "node .claude/skills/design-taste-frontend/scripts/draw.mjs --show",
+    "taste:lint": "node .claude/skills/design-taste-frontend/scripts/lint.mjs --app src",
+    "taste:inspect": "node .claude/skills/design-taste-frontend/scripts/inspect.mjs http://localhost:5173/ --app",
     "verify": "npm run lint && npm run format:check && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {

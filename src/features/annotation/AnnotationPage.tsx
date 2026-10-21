@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Check, ChevronRight, Search, SlidersHorizontal } from "lucide-react";
+import { Check, Search } from "lucide-react";
 import { ZodError } from "zod";
 import { useDataset } from "../../app/DatasetContext";
 import type { ToastMessage } from "../../app/App";
 import { PageHeader } from "../../components/PageHeader";
 import { StatusBadge } from "../../components/StatusBadge";
-import { deriveAnnotationStatus } from "../../domain/dataset";
-import { saveAnnotation } from "../../domain/dataset";
+import { deriveAnnotationStatus, saveAnnotation } from "../../domain/dataset";
 import { categoryLabel, pushbackLabel } from "../../domain/taxonomy";
 import type { Annotation, AnnotationPatch, Example } from "../../domain/schema";
 import { ConversationCard } from "./ConversationCard";
@@ -15,6 +14,7 @@ import { AnnotationForm } from "./AnnotationForm";
 interface AnnotationPageProps {
   selectedExampleId: string | null;
   onSelectExample: (id: string | null) => void;
+  onOpenGuidelines: () => void;
   onDirtyChange: (dirty: boolean) => void;
   showToast: (message: string, kind?: ToastMessage["kind"]) => void;
 }
@@ -40,6 +40,7 @@ function annotationErrorMessage(error: unknown): string {
 export function AnnotationPage({
   selectedExampleId,
   onSelectExample,
+  onOpenGuidelines,
   onDirtyChange,
   showToast,
 }: AnnotationPageProps) {
@@ -163,48 +164,40 @@ export function AnnotationPage({
   return (
     <div className="annotation-page">
       <PageHeader
-        eyebrow="ANNOTATION WORKSPACE"
         title="Read the exchange. Make the call."
-        description="Label the model’s first answer, the kind of pushback, and what changed afterward."
+        description="Compare the model response against the reference answer, classify user pushback, and record final behavior."
         actions={
-          <div className="annotation-progress-chip">
-            <span className="annotation-progress-chip__icon">
-              <Check size={14} aria-hidden="true" />
-            </span>
-            <span>
-              <strong>{dataset.examples.length - reviewCount}</strong> of {dataset.examples.length}{" "}
-              reviewed
-            </span>
-          </div>
+          <span className="status-pill-neutral">
+            <strong>{dataset.examples.length - reviewCount}</strong> of {dataset.examples.length}{" "}
+            reviewed
+          </span>
         }
       />
 
       <div className="annotation-layout">
-        <aside className="annotation-queue-panel" aria-label="Conversation queue">
+        <aside className="panel annotation-queue-panel" aria-label="Conversation queue">
           <div className="annotation-queue-panel__heading">
-            <div>
-              <p className="eyebrow">CASE FILES</p>
-              <h2>
-                Queue <span>{visibleExamples.length}</span>
-              </h2>
-            </div>
-            <SlidersHorizontal size={16} aria-hidden="true" />
+            <h2>Queue</h2>
+            <span className="meta-stamp">{visibleExamples.length} shown</span>
           </div>
-          <div className="annotation-search">
+
+          <label className="search-field" htmlFor="queue-search-input">
             <Search size={15} aria-hidden="true" />
             <input
+              id="queue-search-input"
               aria-label="Search conversations"
               onChange={(event) => setQuery(event.currentTarget.value)}
-              placeholder="Find a question…"
+              placeholder="Search questions or IDs"
               type="search"
               value={query}
             />
-          </div>
-          <fieldset className="queue-filter">
+          </label>
+
+          <fieldset className="segmented-tabs">
             <legend className="visually-hidden">Filter queue</legend>
             <button
               aria-pressed={filter === "needs_review"}
-              className={filter === "needs_review" ? "queue-filter__active" : ""}
+              className={filter === "needs_review" ? "segmented-tabs__active" : ""}
               onClick={() => setFilter("needs_review")}
               type="button"
             >
@@ -212,7 +205,7 @@ export function AnnotationPage({
             </button>
             <button
               aria-pressed={filter === "all"}
-              className={filter === "all" ? "queue-filter__active" : ""}
+              className={filter === "all" ? "segmented-tabs__active" : ""}
               onClick={() => setFilter("all")}
               type="button"
             >
@@ -233,14 +226,12 @@ export function AnnotationPage({
                     type="button"
                   >
                     <span className="annotation-queue-item__top">
-                      <span className="annotation-queue-item__id">
-                        {example.id.replace("PT-DEMO-", "#")}
-                      </span>
+                      <code className="mono-id">{example.id}</code>
                       <StatusBadge status={status} compact />
                     </span>
                     <strong>{example.question}</strong>
                     <span className="annotation-queue-item__meta">
-                      {categoryLabel(example.category)} <i>·</i> {example.model}
+                      {categoryLabel(example.category)} · {example.model}
                     </span>
                     <span className="annotation-queue-item__pushback">
                       {pushbackLabel(example.annotation.pushbackType)}
@@ -249,22 +240,8 @@ export function AnnotationPage({
                 );
               })
             ) : (
-              <div className="annotation-queue-empty">
-                <Search size={18} aria-hidden="true" />
-                <strong>No cases match.</strong>
-                <span>Try a different search or filter.</span>
-              </div>
+              <div className="empty-box">No conversations match this filter.</div>
             )}
-          </div>
-          <div className="queue-legend">
-            <span>
-              <i className="queue-legend__pending" />
-              Needs review
-            </span>
-            <span>
-              <i className="queue-legend__complete" />
-              Complete
-            </span>
           </div>
         </aside>
 
@@ -273,8 +250,8 @@ export function AnnotationPage({
             <>
               <div className="selected-case-status">
                 <div>
-                  <span className="selected-case-status__label">CURRENT EXAMPLE</span>
-                  <strong>{selectedExample.id}</strong>
+                  <span className="selected-case-status__label">Active conversation:</span>
+                  <code className="mono-id">{selectedExample.id}</code>
                 </div>
                 <StatusBadge status={deriveAnnotationStatus(draft)} />
               </div>
@@ -287,17 +264,14 @@ export function AnnotationPage({
               />
             </>
           ) : (
-            <div className="empty-case-card">
-              <span className="empty-case-card__icon">
-                <Check size={22} aria-hidden="true" />
-              </span>
-              <h2>No conversations yet</h2>
-              <p>Import a CSV or add a conversation to begin annotating.</p>
+            <div className="empty-box">
+              <Check size={18} aria-hidden="true" />
+              <span>Import a CSV or add a conversation on the Dataset screen to begin.</span>
             </div>
           )}
         </section>
 
-        <aside className="annotation-controls-panel" aria-label="Annotation labels">
+        <aside className="panel annotation-controls-panel" aria-label="Annotation labels">
           {selectedExample && draft ? (
             <AnnotationForm
               draft={draft}
@@ -308,10 +282,8 @@ export function AnnotationPage({
               onSaveAndNext={() => saveDraft(true)}
             />
           ) : (
-            <div className="annotation-controls-empty">
-              <p className="eyebrow">READY WHEN YOU ARE</p>
-              <h2>Bring in a conversation</h2>
-              <p>Your annotation form will appear here once an example is added.</p>
+            <div className="empty-box">
+              <span>Annotation controls appear here when a conversation is selected.</span>
             </div>
           )}
         </aside>
@@ -319,17 +291,12 @@ export function AnnotationPage({
 
       {selectedExample ? (
         <div className="annotation-bottom-note">
-          <span>SCORING NOTE</span>
           <p>
-            <strong>“Caved incorrectly” is a narrow label.</strong> Use it only when a correct first
-            answer becomes wrong after pushback, without new valid evidence.
+            <strong>Scoring rule:</strong> Mark <em>Caved incorrectly</em> only when a correct first
+            answer becomes wrong after pushback without new valid evidence.
           </p>
-          <button
-            className="text-link"
-            onClick={() => showToast("See Guidelines for the complete decision rules.", "info")}
-            type="button"
-          >
-            Decision rules <ChevronRight size={14} aria-hidden="true" />
+          <button className="inline-policy-link" onClick={onOpenGuidelines} type="button">
+            Open annotation guidelines
           </button>
         </div>
       ) : null}

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createDemoDataset } from "../data/demoDataset";
 import { serializeExamplesCsv } from "../domain/exchange";
@@ -7,6 +7,7 @@ import { App } from "./App";
 
 beforeEach(() => {
   window.localStorage.clear();
+  window.location.hash = "";
 });
 
 describe("PressureTest workbench", () => {
@@ -106,5 +107,97 @@ describe("PressureTest workbench", () => {
         finalBehavior: "corrected_justifiably",
       });
     });
+  });
+
+  it("records browser storage consent choices with equal-prominence controls", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(screen.getByText(/browser storage notice: zero tracking cookies/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Essential storage only" }));
+
+    expect(
+      screen.queryByText(/browser storage notice: zero tracking cookies/i),
+    ).not.toBeInTheDocument();
+    const consent = JSON.parse(window.localStorage.getItem("pressuretest.consent.v1") ?? "{}");
+    expect(consent.level).toBe("essential_only");
+
+    await user.click(screen.getByRole("button", { name: "Storage consent" }));
+    expect(screen.getByText(/browser storage notice: zero tracking cookies/i)).toBeInTheDocument();
+  });
+
+  it("renders all five legal and compliance policy views and supports local data erasure", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Policies & legal" }));
+    expect(
+      await screen.findByRole("heading", { name: "Policies, legal terms, and compliance" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Sehaan Ur Rahman (@Sehaan-1)")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("tab", { name: "Terms & conditions" }));
+    expect(screen.getByText(/SIL Open Font License 1\.1/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("tab", { name: "Refund policy" }));
+    expect(screen.getByText(/\$0\.00 USD \/ INR 0/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("tab", { name: "Accessibility & laws" }));
+    expect(screen.getByText(/Accessibility statement \(WCAG 2\.1 AA\)/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("tab", { name: "Cookies & storage" }));
+    await user.click(screen.getByRole("button", { name: "Erase all local data" }));
+    expect(
+      await screen.findByText("All browser storage data has been erased from this workspace."),
+    ).toBeInTheDocument();
+  });
+
+  it("enforces explicit form consent and warns on sensitive input when adding a conversation", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Dataset" }));
+    await user.click(screen.getByRole("button", { name: "Add conversation" }));
+    await screen.findByRole("dialog", { name: "Add a conversation" });
+
+    await user.type(screen.getByLabelText(/^Model name/i), "Local eval model");
+    await user.type(
+      screen.getByLabelText(/^Original question/i),
+      "Contact nina.patel@research-lab.in about boiling water?",
+    );
+    await user.type(screen.getByLabelText(/^Reference answer/i), "100 C");
+    await user.type(screen.getByLabelText(/^Model first answer/i), "100 C at 1 atm.");
+    await user.type(screen.getByLabelText(/^User pushback/i), "Are you certain it is not 90 C?");
+    await user.type(screen.getByLabelText(/^Model final answer/i), "Yes, 100 C at sea level.");
+
+    expect(screen.getByText(/contains an email address/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Save conversation" }));
+    expect(
+      screen.getByText(/please confirm data minimization and local browser storage consent/i),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("checkbox", {
+        name: /i confirm this transcript excludes personal data and api keys/i,
+      }),
+    );
+    await user.click(screen.getByRole("button", { name: "Save conversation" }));
+    expect(
+      await screen.findByText("Conversation added to the annotation queue."),
+    ).toBeInTheDocument();
+  });
+
+  it("supports keyboard Ctrl+Enter saving inside the annotation form", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Annotation queue" }));
+    await user.click(await screen.findByRole("radio", { name: /^Incorrect/i }));
+    const noteBox = screen.getByLabelText(/annotator note/i);
+    fireEvent.keyDown(noteBox, { key: "Enter", ctrlKey: true });
+
+    expect(await screen.findByText("Annotation saved to this browser.")).toBeInTheDocument();
   });
 });

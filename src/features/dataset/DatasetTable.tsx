@@ -17,12 +17,12 @@ export function DatasetTable({ examples, onOpenExample, onDelete }: DatasetTable
         <thead>
           <tr>
             <th scope="col">Conversation</th>
-            <th scope="col">Model / type</th>
+            <th scope="col">Model & category</th>
             <th scope="col">Pushback</th>
             <th scope="col">Final behavior</th>
             <th scope="col">Status</th>
-            <th scope="col">
-              <span className="visually-hidden">Actions</span>
+            <th scope="col" className="dataset-table__actions-head">
+              Actions
             </th>
           </tr>
         </thead>
@@ -38,10 +38,9 @@ export function DatasetTable({ examples, onOpenExample, onDelete }: DatasetTable
                     type="button"
                   >
                     {example.question}
-                    <ArrowUpRight size={13} aria-hidden="true" />
                   </button>
                   <span className="dataset-table__id">
-                    {example.id} <i>·</i> {example.language}
+                    <code className="mono-id">{example.id}</code> · {example.language}
                   </span>
                 </td>
                 <td>
@@ -68,8 +67,7 @@ export function DatasetTable({ examples, onOpenExample, onDelete }: DatasetTable
                     className="table-icon-button"
                     onClick={() => onOpenExample(example.id)}
                     type="button"
-                    aria-label={`Annotate ${example.id}`}
-                    title="Open annotation"
+                    aria-label={`Open ${example.id} in annotation queue`}
                   >
                     <ArrowUpRight size={15} aria-hidden="true" />
                   </button>
@@ -77,8 +75,7 @@ export function DatasetTable({ examples, onOpenExample, onDelete }: DatasetTable
                     className="table-icon-button table-icon-button--danger"
                     onClick={() => onDelete(example.id)}
                     type="button"
-                    aria-label={`Delete ${example.id}`}
-                    title="Delete example"
+                    aria-label={`Delete conversation ${example.id}`}
                   >
                     <Trash2 size={15} aria-hidden="true" />
                   </button>
@@ -89,9 +86,9 @@ export function DatasetTable({ examples, onOpenExample, onDelete }: DatasetTable
         </tbody>
       </table>
       {examples.length === 0 ? (
-        <div className="dataset-table-empty">
-          <strong>No conversations match this view.</strong>
-          <span>Change your search or import a dataset to get started.</span>
+        <div className="empty-box">
+          <strong>No conversations match this filter.</strong>
+          <span>Adjust your search or import a CSV or JSON file above.</span>
         </div>
       ) : null}
     </div>

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { Plus } from "lucide-react";
+import { AlertCircle, Check, Plus } from "lucide-react";
 import { categoryOptions } from "../../domain/taxonomy";
 import type { Category, Example } from "../../domain/schema";
 import { Modal } from "../../components/Modal";
 import { Button } from "../../components/Button";
+import { detectSensitiveInput } from "../../utils/sensitiveDataCheck";
 
 interface ExampleFormDialogProps {
   onClose: () => void;
@@ -41,13 +42,32 @@ function newExampleId(): string {
 
 export function ExampleFormDialog({ onClose, onCreate }: ExampleFormDialogProps) {
   const [form, setForm] = useState(initialForm);
+  const [consentConfirmed, setConsentConfirmed] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const sensitiveWarnings = detectSensitiveInput({
+    "Model name": form.model,
+    "Original question": form.question,
+    "Reference answer": form.referenceAnswer,
+    "First answer": form.initialResponse,
+    "User pushback": form.pushback,
+    "Final answer": form.finalResponse,
+  });
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
+    setSubmitError(null);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!consentConfirmed) {
+      setSubmitError(
+        "Please confirm data minimization and local browser storage consent before saving.",
+      );
+      return;
+    }
+
     const example: Example = {
       id: newExampleId(),
       origin: "manual",
@@ -67,29 +87,31 @@ export function ExampleFormDialog({ onClose, onCreate }: ExampleFormDialogProps)
   return (
     <Modal
       title="Add a conversation"
-      description="Enter one three-stage exchange. Annotation fields can be filled in later."
+      description="Enter only the necessary prompt, responses, and reference answer. Never paste personal identifiers or API keys."
       onClose={onClose}
       size="large"
     >
       <form className="example-form" onSubmit={handleSubmit}>
         <div className="form-grid form-grid--three">
-          <label className="form-field">
-            <span>
+          <div className="form-field">
+            <label htmlFor="field-model-name">
               Model name <b>*</b>
-            </span>
+            </label>
             <input
+              id="field-model-name"
               maxLength={120}
               onChange={(event) => update("model", event.currentTarget.value)}
-              placeholder="e.g. Model ID or name"
+              placeholder="Model identifier"
               required
               value={form.model}
             />
-          </label>
-          <label className="form-field">
-            <span>
+          </div>
+          <div className="form-field">
+            <label htmlFor="field-category">
               Category <b>*</b>
-            </span>
+            </label>
             <select
+              id="field-category"
               value={form.category}
               onChange={(event) => update("category", event.currentTarget.value as Category)}
             >
@@ -99,87 +121,132 @@ export function ExampleFormDialog({ onClose, onCreate }: ExampleFormDialogProps)
                 </option>
               ))}
             </select>
-          </label>
-          <label className="form-field">
-            <span>
+          </div>
+          <div className="form-field">
+            <label htmlFor="field-language">
               Language <b>*</b>
-            </span>
+            </label>
             <input
+              id="field-language"
               maxLength={40}
               onChange={(event) => update("language", event.currentTarget.value)}
               required
               value={form.language}
             />
-          </label>
+          </div>
         </div>
 
-        <label className="form-field">
-          <span>
+        <div className="form-field">
+          <label htmlFor="field-question">
             Original question <b>*</b>
-          </span>
+          </label>
           <textarea
+            id="field-question"
             maxLength={5_000}
             onChange={(event) => update("question", event.currentTarget.value)}
             required
             rows={2}
             value={form.question}
           />
-        </label>
-        <label className="form-field">
-          <span>
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="field-reference">
             Reference answer <b>*</b>
-          </span>
+          </label>
           <textarea
+            id="field-reference"
             maxLength={5_000}
             onChange={(event) => update("referenceAnswer", event.currentTarget.value)}
             required
             rows={2}
             value={form.referenceAnswer}
           />
-        </label>
-        <label className="form-field">
-          <span>
-            Model’s first answer <b>*</b>
-          </span>
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="field-initial">
+            Model first answer <b>*</b>
+          </label>
           <textarea
+            id="field-initial"
             maxLength={10_000}
             onChange={(event) => update("initialResponse", event.currentTarget.value)}
             required
             rows={2}
             value={form.initialResponse}
           />
-        </label>
-        <label className="form-field">
-          <span>
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="field-pushback">
             User pushback <b>*</b>
-          </span>
+          </label>
           <textarea
+            id="field-pushback"
             maxLength={5_000}
             onChange={(event) => update("pushback", event.currentTarget.value)}
             required
             rows={2}
             value={form.pushback}
           />
-        </label>
-        <label className="form-field">
-          <span>
-            Model’s final answer <b>*</b>
-          </span>
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="field-final">
+            Model final answer <b>*</b>
+          </label>
           <textarea
+            id="field-final"
             maxLength={10_000}
             onChange={(event) => update("finalResponse", event.currentTarget.value)}
             required
             rows={2}
             value={form.finalResponse}
           />
+        </div>
+
+        <label className="consent-checkbox" htmlFor="field-form-consent">
+          <input
+            id="field-form-consent"
+            checked={consentConfirmed}
+            onChange={(event) => {
+              setConsentConfirmed(event.currentTarget.checked);
+              setSubmitError(null);
+            }}
+            type="checkbox"
+          />
+          <span className="tone-option__check" aria-hidden="true">
+            <Check size={12} />
+          </span>
+          <span>
+            I confirm this transcript excludes personal data and API keys, and I consent to storing
+            it locally in this browser under the Privacy & Storage Policy.
+          </span>
         </label>
 
+        {sensitiveWarnings.length > 0 ? (
+          <div className="annotation-warning" role="status">
+            <AlertCircle size={15} aria-hidden="true" />
+            <span>
+              {sensitiveWarnings[0]?.field}: {sensitiveWarnings[0]?.reason}
+            </span>
+          </div>
+        ) : null}
+
+        {submitError ? (
+          <div className="annotation-error" role="alert">
+            <AlertCircle size={15} aria-hidden="true" />
+            <span>{submitError}</span>
+          </div>
+        ) : null}
+
         <div className="modal-actions">
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" icon={<Plus size={15} />}>
-            Add conversation
+            Save conversation
           </Button>
         </div>
       </form>

@@ -1,12 +1,17 @@
 import { useMemo, useRef, useState } from "react";
 import type { ChangeEvent } from "react";
-import { Check, Download, FileDown, FileText, FileUp, Plus, Search, Table2 } from "lucide-react";
+import { Download, FileDown, FileText, FileUp, Plus, Search } from "lucide-react";
 import { useDataset } from "../../app/DatasetContext";
 import type { ToastMessage } from "../../app/App";
 import { Button } from "../../components/Button";
 import { PageHeader } from "../../components/PageHeader";
-import { deriveAnnotationStatus } from "../../domain/dataset";
-import { addExample, appendExamples, removeExample, replaceExamples } from "../../domain/dataset";
+import {
+  addExample,
+  appendExamples,
+  deriveAnnotationStatus,
+  removeExample,
+  replaceExamples,
+} from "../../domain/dataset";
 import {
   parseImportText,
   serializeDatasetJson,
@@ -158,7 +163,7 @@ export function DatasetPage({ onOpenExample, showToast }: DatasetPageProps) {
   }
 
   function deleteExample(example: Example) {
-    const confirmed = window.confirm(`Delete “${example.question}”? This cannot be undone.`);
+    const confirmed = window.confirm(`Delete "${example.question}"? This cannot be undone.`);
     if (!confirmed) return;
     try {
       const changed = commit((current) => removeExample(current, example.id));
@@ -206,9 +211,8 @@ export function DatasetPage({ onOpenExample, showToast }: DatasetPageProps) {
   return (
     <div className="dataset-page">
       <PageHeader
-        eyebrow="DATASET MANAGEMENT"
         title="Every response, in one place."
-        description="Keep source conversations and annotation labels together. Import or export without uploading your data."
+        description="Inspect source conversations and human labels locally. Import CSV or JSON files without uploading research data."
         actions={
           <>
             <input
@@ -234,119 +238,112 @@ export function DatasetPage({ onOpenExample, showToast }: DatasetPageProps) {
         }
       />
 
-      <div className="dataset-summary-row">
-        <div className="dataset-summary-card">
-          <span className="dataset-summary-card__icon">
-            <Table2 size={17} aria-hidden="true" />
-          </span>
-          <div>
-            <strong>{counts.total.toLocaleString()}</strong>
-            <span>Total examples</span>
-          </div>
+      <section className="kpi-band dataset-kpi-band" aria-label="Dataset summary counts">
+        <div className="kpi-cell">
+          <span className="kpi-cell__label">Total conversations</span>
+          <strong className="kpi-cell__value">{counts.total.toLocaleString()}</strong>
+          <span className="kpi-cell__detail">schema version {dataset.schemaVersion}.0</span>
         </div>
-        <div className="dataset-summary-card">
-          <span className="dataset-summary-card__icon dataset-summary-card__icon--green">
-            <Check size={17} aria-hidden="true" />
-          </span>
-          <div>
-            <strong>{counts.complete.toLocaleString()}</strong>
-            <span>Fully annotated</span>
-          </div>
+        <div className="kpi-cell">
+          <span className="kpi-cell__label">Annotated</span>
+          <strong className="kpi-cell__value">{counts.complete.toLocaleString()}</strong>
+          <span className="kpi-cell__detail">all three required labels saved</span>
         </div>
-        <div className="dataset-summary-card">
-          <span className="dataset-summary-card__icon dataset-summary-card__icon--amber">
-            <Search size={17} aria-hidden="true" />
-          </span>
-          <div>
-            <strong>{counts.needsReview.toLocaleString()}</strong>
-            <span>Still in queue</span>
-          </div>
+        <div className="kpi-cell">
+          <span className="kpi-cell__label">Needs review</span>
+          <strong className="kpi-cell__value">{counts.needsReview.toLocaleString()}</strong>
+          <span className="kpi-cell__detail">remaining in annotation queue</span>
         </div>
-        <div className="dataset-export-actions">
-          <span>DOWNLOAD</span>
-          <Button variant="ghost" size="small" icon={<FileDown size={15} />} onClick={exportCsv}>
-            CSV
-          </Button>
-          <Button
-            variant="ghost"
-            size="small"
-            icon={<FileText size={15} />}
-            onClick={exportTemplate}
-          >
-            Blank template
-          </Button>
-          <Button variant="ghost" size="small" icon={<Download size={15} />} onClick={exportJson}>
-            JSON
-          </Button>
-        </div>
-      </div>
-
-      <section className="dataset-browser panel">
-        <div className="dataset-browser__toolbar">
-          <fieldset className="dataset-browser__filters">
-            <legend className="visually-hidden">Filter dataset</legend>
-            <button
-              aria-pressed={filter === "all"}
-              className={filter === "all" ? "filter-tab--active" : ""}
-              onClick={() => setFilter("all")}
-              type="button"
-            >
-              All <span>{counts.total}</span>
-            </button>
-            <button
-              aria-pressed={filter === "needs_review"}
-              className={filter === "needs_review" ? "filter-tab--active" : ""}
-              onClick={() => setFilter("needs_review")}
-              type="button"
-            >
-              Needs review <span>{counts.needsReview}</span>
-            </button>
-            <button
-              aria-pressed={filter === "complete"}
-              className={filter === "complete" ? "filter-tab--active" : ""}
-              onClick={() => setFilter("complete")}
-              type="button"
-            >
-              Annotated <span>{counts.complete}</span>
-            </button>
-          </fieldset>
-          <label className="dataset-browser__search">
-            <Search size={15} aria-hidden="true" />
-            <input
-              aria-label="Search dataset"
-              onChange={(event) => setQuery(event.currentTarget.value)}
-              placeholder="Search by question or model"
-              type="search"
-              value={query}
-            />
-          </label>
-        </div>
-
-        <div className="dataset-browser__caption">
-          <span>
-            Showing <strong>{visibleExamples.length}</strong> of {counts.total} conversations
-          </span>
-          <span>Local workspace · {dataset.schemaVersion}.0 schema</span>
-        </div>
-        <DatasetTable
-          examples={visibleExamples}
-          onDelete={(id) => {
-            const example = dataset.examples.find((candidate) => candidate.id === id);
-            if (example) deleteExample(example);
-          }}
-          onOpenExample={onOpenExample}
-        />
       </section>
 
-      <div className="dataset-privacy-note">
-        <span className="dataset-privacy-note__icon">
-          <Check size={14} aria-hidden="true" />
-        </span>
-        <p>
-          <strong>Your dataset stays here.</strong> PressureTest stores this workspace in browser
-          storage. Export JSON backups regularly; this app does not sync or encrypt local data.
-        </p>
+      <div className="legal-tabs dataset-tabs" role="tablist" aria-label="Filter dataset by status">
+        <button
+          role="tab"
+          aria-selected={filter === "all"}
+          className={`legal-tab${filter === "all" ? " legal-tab--active" : ""}`}
+          onClick={() => setFilter("all")}
+          type="button"
+        >
+          All ({counts.total})
+        </button>
+        <button
+          role="tab"
+          aria-selected={filter === "needs_review"}
+          className={`legal-tab${filter === "needs_review" ? " legal-tab--active" : ""}`}
+          onClick={() => setFilter("needs_review")}
+          type="button"
+        >
+          Needs review ({counts.needsReview})
+        </button>
+        <button
+          role="tab"
+          aria-selected={filter === "complete"}
+          className={`legal-tab${filter === "complete" ? " legal-tab--active" : ""}`}
+          onClick={() => setFilter("complete")}
+          type="button"
+        >
+          Annotated ({counts.complete})
+        </button>
       </div>
+
+      <div className="dataset-toolbar">
+        <label className="search-field dataset-search-field" htmlFor="dataset-search-input">
+          <Search size={15} aria-hidden="true" />
+          <input
+            id="dataset-search-input"
+            aria-label="Search dataset"
+            onChange={(event) => setQuery(event.currentTarget.value)}
+            placeholder="Filter by question, model, category, or ID"
+            type="search"
+            value={query}
+          />
+        </label>
+
+        <div className="dataset-export-actions">
+          <span className="meta-stamp">
+            Showing <strong>{visibleExamples.length}</strong> of {counts.total}
+          </span>
+          <Button
+            variant="secondary"
+            size="small"
+            icon={<FileDown size={14} />}
+            onClick={exportCsv}
+          >
+            Download CSV
+          </Button>
+          <Button
+            variant="secondary"
+            size="small"
+            icon={<FileText size={14} />}
+            onClick={exportTemplate}
+          >
+            Download blank template
+          </Button>
+          <Button
+            variant="secondary"
+            size="small"
+            icon={<Download size={14} />}
+            onClick={exportJson}
+          >
+            Download JSON
+          </Button>
+        </div>
+      </div>
+
+      <DatasetTable
+        examples={visibleExamples}
+        onDelete={(id) => {
+          const example = dataset.examples.find((candidate) => candidate.id === id);
+          if (example) deleteExample(example);
+        }}
+        onOpenExample={onOpenExample}
+      />
+
+      <p className="dataset-privacy-note">
+        <strong>Local storage notice:</strong> Datasets remain in your browser profile only and are
+        not encrypted or synced online. Export JSON backups regularly and omit personal identifiers
+        when importing transcripts.
+      </p>
 
       {showExampleForm ? (
         <ExampleFormDialog onClose={() => setShowExampleForm(false)} onCreate={createExample} />

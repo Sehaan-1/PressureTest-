@@ -33,5 +33,8 @@ jobs:
       - name: Run lint, format, types, tests, and production build
         run: npm run verify
 
+      - name: Run taste-skill design lint
+        run: npm run taste:lint
+
       - name: Audit dependencies
         run: npm audit

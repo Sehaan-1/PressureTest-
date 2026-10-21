@@ -5,7 +5,6 @@ interface ChoiceOption<T extends string> {
 }
 
 interface ChoiceGroupProps<T extends string> {
-  number: string;
   title: string;
   name: string;
   value: T | null;
@@ -14,7 +13,6 @@ interface ChoiceGroupProps<T extends string> {
 }
 
 export function ChoiceGroup<T extends string>({
-  number,
   title,
   name,
   value,
@@ -23,10 +21,7 @@ export function ChoiceGroup<T extends string>({
 }: ChoiceGroupProps<T>) {
   return (
     <fieldset className="choice-group">
-      <legend>
-        <span className="choice-group__number">{number}</span>
-        {title}
-      </legend>
+      <legend>{title}</legend>
       <div className="choice-group__options">
         {options.map((option) => (
           <label

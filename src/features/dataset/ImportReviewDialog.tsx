@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, FileUp, Info } from "lucide-react";
+import { AlertCircle, CheckCircle2, FileUp } from "lucide-react";
 import type { ImportResult } from "../../domain/exchange";
 import { Button } from "../../components/Button";
 import { Modal } from "../../components/Modal";
@@ -27,24 +27,20 @@ export function ImportReviewDialog({
         {result.success ? (
           <>
             <div className="import-success-summary">
-              <span>
-                <CheckCircle2 size={20} aria-hidden="true" />
-              </span>
+              <CheckCircle2 size={18} aria-hidden="true" />
               <div>
-                <strong>{result.examples.length.toLocaleString()} conversations ready</strong>
-                <small>{result.format.toUpperCase()} · validated before changes</small>
+                <strong>{result.examples.length.toLocaleString()} conversations validated</strong>
+                <small>{result.format.toUpperCase()} file checked locally before saving</small>
               </div>
             </div>
-            <div className="import-info-note">
-              <Info size={16} aria-hidden="true" />
-              <span>
-                Append skips IDs already in this workspace. Replace removes the current dataset
-                after confirmation.
-              </span>
-            </div>
+            <p className="import-info-note">
+              Append skips duplicate IDs already in this workspace. Replace overwrites the current
+              dataset after confirmation. Ensure imported transcripts exclude personal identifiers
+              and provider keys; saving stores them only in this browser.
+            </p>
             {result.examples[0] ? (
               <div className="import-preview-row">
-                <span>FIRST ROW PREVIEW</span>
+                <span>First row preview</span>
                 <strong>{result.examples[0].question}</strong>
                 <small>
                   {result.examples[0].model} · {result.examples[0].category}
@@ -71,13 +67,11 @@ export function ImportReviewDialog({
           </>
         ) : (
           <>
-            <div className="import-error-summary">
-              <span>
-                <AlertCircle size={20} aria-hidden="true" />
-              </span>
+            <div className="import-error-summary" role="alert">
+              <AlertCircle size={18} aria-hidden="true" />
               <div>
                 <strong>No changes were made.</strong>
-                <small>Fix the file and try again.</small>
+                <small>Fix the validation issues below and try importing again.</small>
               </div>
             </div>
             <ul className="import-problem-list">
@@ -90,7 +84,7 @@ export function ImportReviewDialog({
             </ul>
             <div className="modal-actions">
               <Button variant="secondary" onClick={onClose}>
-                Close
+                Close dialog
               </Button>
             </div>
           </>

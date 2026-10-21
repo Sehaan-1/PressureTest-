@@ -214,9 +214,6 @@ export function AppShell({
               <button onClick={() => onOpenLegal("cookies")} type="button">
                 Cookies & storage
               </button>
-              <button onClick={() => onOpenLegal("refunds")} type="button">
-                Refund policy
-              </button>
               <button onClick={() => onOpenLegal("accessibility")} type="button">
                 Accessibility
               </button>

@@ -12,7 +12,7 @@
 - Add conversations manually (with explicit consent and client-side PII/API-key warnings) or import bounded CSV/JSON files.
 - Export portable versioned JSON backups, spreadsheet-safe CSV exports, or a blank CSV template.
 - Explore descriptive model and pushback SVG bar comparisons with explicit numerators, denominators, and sample-size caveats. Cave rates condition on complete examples whose initial answer was correct; the all-complete flip share is reported separately.
-- Inspect built-in **Policies & legal** views (`#privacy`, `#terms`, `#cookies`, `#refunds`, `#accessibility`) covering local browser storage inventory, consent controls, one-click local data erasure, open-source MIT fee policy (`$0.00 / INR 0`), WCAG 2.1 AA accessibility, and applicable data laws.
+- Inspect built-in **Policies & legal** views (`#privacy`, `#terms`, `#cookies`, `#accessibility`) covering local browser storage inventory, consent controls, one-click local data erasure, MIT license disclosures, WCAG 2.1 AA accessibility, and applicable data laws.
 - Read the concise in-app protocol and the full annotator handbook in [`docs/annotation-guidelines.md`](docs/annotation-guidelines.md).
 
 ### Taxonomy note

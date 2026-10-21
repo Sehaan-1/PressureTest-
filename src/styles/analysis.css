@@ -1,0 +1,365 @@
+.analysis-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.analysis-sample-warning {
+  margin-top: -4px;
+}
+
+.analysis-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(275px, 0.8fr);
+  gap: 13px;
+}
+
+.analysis-primary-card,
+.analysis-tone-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 215px;
+  padding: 20px 22px 0;
+  border: 1px solid #e3e9e4;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.analysis-primary-card::after {
+  position: absolute;
+  top: -50px;
+  right: -45px;
+  width: 210px;
+  height: 210px;
+  border: 1px solid rgb(110 153 121 / 14%);
+  border-radius: 50%;
+  content: "";
+}
+
+.analysis-primary-card::before {
+  position: absolute;
+  top: -23px;
+  right: -19px;
+  width: 158px;
+  height: 158px;
+  border: 1px dashed rgb(110 153 121 / 19%);
+  border-radius: 50%;
+  content: "";
+}
+
+.analysis-primary-card__top,
+.analysis-tone-card__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analysis-primary-card__icon,
+.analysis-tone-card__icon {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border-radius: 8px;
+  background: #fff0e9;
+  color: #c67756;
+}
+
+.analysis-primary-card__tag,
+.analysis-tone-card__tag {
+  color: #9b8d7e;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.analysis-primary-card__label {
+  margin: 19px 0 0;
+  color: #728078;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.analysis-primary-card__value {
+  display: block;
+  margin-top: 1px;
+  color: #bd694c;
+  font-size: 43px;
+  font-weight: 650;
+  letter-spacing: -0.08em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.analysis-primary-card__denominator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  color: #829087;
+  font-size: 9px;
+}
+
+.analysis-primary-card__denominator i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #b4beb6;
+}
+
+.analysis-primary-card__joint-share {
+  margin: 4px 0 0;
+  color: #9aa49d;
+  font-size: 8px;
+}
+
+.analysis-primary-card__foot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 17px -22px 0;
+  padding: 10px 22px;
+  border-top: 1px solid #edf0ed;
+  background: #fbfcfb;
+  color: #818f86;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.analysis-primary-card__foot svg {
+  flex: 0 0 auto;
+  color: #6c9875;
+}
+
+.analysis-tone-card {
+  background: linear-gradient(145deg, #fff 0, #fbfafc 100%);
+}
+
+.analysis-tone-card__icon {
+  background: #f1eef8;
+  color: #7f6fa4;
+}
+
+.analysis-tone-card__tag {
+  color: #8d82a3;
+}
+
+.analysis-tone-card > p {
+  margin: 17px 0 2px;
+  color: #657268;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.analysis-tone-card > strong {
+  display: inline-block;
+  color: #6f6194;
+  font-size: 34px;
+  font-weight: 650;
+  letter-spacing: -0.07em;
+  line-height: 1.15;
+}
+
+.analysis-tone-card__denominator {
+  display: block;
+  margin-top: 5px;
+  color: #909b94;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.analysis-tone-card__note {
+  margin: 12px -22px 0;
+  padding: 8px 22px;
+  border-top: 1px solid #eeeaf3;
+  color: #988fa5;
+  font-size: 8px;
+}
+
+.analysis-comparison-grid,
+.analysis-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.analysis-panel {
+  padding: 18px 19px 14px;
+}
+
+.analysis-panel .panel-subtitle {
+  margin: 11px 0 19px;
+}
+
+.analysis-rates {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.analysis-panel__footnote {
+  margin: 17px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid #eef1ee;
+  color: #9aa49d;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.analysis-no-cohort {
+  padding: 25px 0;
+  color: #929e96;
+  font-size: 10px;
+}
+
+.analysis-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px;
+  border: 1px dashed #dce6de;
+  border-radius: 12px;
+  background: #fbfdfb;
+  text-align: center;
+}
+
+.analysis-empty-state > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 13px;
+  background: #ecf4ee;
+  color: #72917a;
+}
+
+.analysis-empty-state h2 {
+  margin: 10px 0 0;
+  color: #506155;
+  font-size: 14px;
+}
+
+.analysis-empty-state p {
+  max-width: 420px;
+  margin: 5px 0 0;
+  color: #8b9890;
+  font-size: 10px;
+}
+
+.outcomes-panel {
+  padding: 18px 19px 14px;
+}
+
+.outcome-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-top: 20px;
+}
+
+.outcome-row__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  color: #627169;
+  font-size: 9px;
+}
+
+.outcome-row__top strong {
+  color: #516257;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.outcome-row__track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #edf1ed;
+}
+
+.outcome-row__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 200ms ease;
+}
+
+.outcome-row__fill--held_ground {
+  background: #79a482;
+}
+.outcome-row__fill--caved_incorrectly {
+  background: #d77a5b;
+}
+.outcome-row__fill--corrected_justifiably {
+  background: #6e91a6;
+}
+.outcome-row__fill--hedged {
+  background: #9585b5;
+}
+
+.analysis-method-card {
+  padding: 18px 20px;
+  border: 1px solid #e1e8e2;
+  border-radius: 13px;
+  background: linear-gradient(145deg, #f0f6f0 0%, #f8faf7 100%);
+}
+
+.analysis-method-card__icon {
+  display: grid;
+  width: 33px;
+  height: 33px;
+  margin-bottom: 15px;
+  place-items: center;
+  border: 1px solid #dae7dc;
+  border-radius: 9px;
+  background: #fff;
+  color: #668a6e;
+}
+
+.analysis-method-card h2 {
+  margin: 6px 0 0;
+  color: #314b39;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.analysis-method-card > p:not(.eyebrow) {
+  margin: 7px 0 14px;
+  color: #718176;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.analysis-method-card__rule {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 0;
+  border-top: 1px solid #e4ebe4;
+}
+
+.analysis-method-card__rule > span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 6px;
+  background: #e5efe6;
+  color: #618369;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.analysis-method-card__rule p {
+  margin: 0;
+  color: #718077;
+  font-size: 8px;
+}

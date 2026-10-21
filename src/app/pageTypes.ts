@@ -8,7 +8,7 @@ export const pages = [
 ] as const;
 export type PageId = (typeof pages)[number];
 
-export const legalTabs = ["privacy", "terms", "cookies", "refunds", "accessibility"] as const;
+export const legalTabs = ["privacy", "terms", "cookies", "accessibility"] as const;
 export type LegalTabId = (typeof legalTabs)[number];
 
 export const pageLabels: Record<PageId, string> = {
@@ -24,7 +24,6 @@ export const legalTabLabels: Record<LegalTabId, string> = {
   privacy: "Privacy policy",
   terms: "Terms & conditions",
   cookies: "Cookies & storage",
-  refunds: "Refund policy",
   accessibility: "Accessibility & laws",
 };
 

@@ -32,7 +32,7 @@ Annotation form / manual entry ────────────────�
 - `src/data/`: explicitly synthetic, labeled starter records (`PT-DEMO-001`..`PT-DEMO-008`).
 - `src/features/`: overview dashboard, annotation queue, dataset management, analysis, guidelines, and policies/legal views.
 - `src/components/`: shared UI primitives, code-drawn SVG charts, brand mark, and storage consent banner.
-- `src/app/`: application shell, hash routing (`#overview`, `#annotate`, `#dataset`, `#analysis`, `#guidelines`, `#privacy`, `#terms`, `#cookies`, `#refunds`, `#accessibility`), and state context.
+- `src/app/`: application shell, hash routing (`#overview`, `#annotate`, `#dataset`, `#analysis`, `#guidelines`, `#privacy`, `#terms`, `#cookies`, `#accessibility`), and state context.
 - `src/styles/`: `Framed sheet` design tokens (`tokens.css`), shell layout, flat component rules, and responsive breakpoints.
 - `src/utils/`: browser download helper and client-side PII/API-key warning helper (`sensitiveDataCheck.ts`).
 - `.claude/skills/design-taste-frontend/`: `taste-skill` v2 static lint and live headless Chromium layout/contrast inspector.

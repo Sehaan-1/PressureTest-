@@ -126,7 +126,7 @@ describe("PressureTest workbench", () => {
     expect(screen.getByText(/browser storage notice: zero tracking cookies/i)).toBeInTheDocument();
   });
 
-  it("renders all five legal and compliance policy views and supports local data erasure", async () => {
+  it("renders legal and compliance policy views and supports local data erasure", async () => {
     const user = userEvent.setup();
     vi.spyOn(window, "confirm").mockReturnValue(true);
     render(<App />);
@@ -139,9 +139,6 @@ describe("PressureTest workbench", () => {
 
     await user.click(screen.getByRole("tab", { name: "Terms & conditions" }));
     expect(screen.getByText(/SIL Open Font License 1\.1/i)).toBeInTheDocument();
-
-    await user.click(screen.getByRole("tab", { name: "Refund policy" }));
-    expect(screen.getByText(/\$0\.00 USD \/ INR 0/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole("tab", { name: "Accessibility & laws" }));
     expect(screen.getByText(/Accessibility statement \(WCAG 2\.1 AA\)/i)).toBeInTheDocument();

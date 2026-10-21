@@ -33,7 +33,7 @@ export function LegalPage({
     <div className="legal-page">
       <PageHeader
         title="Policies, legal terms, and compliance"
-        description="Plain-language disclosures for privacy, terms of use, browser storage, open-source fee policy, accessibility conformance, and applicable data laws."
+        description="Plain-language disclosures for privacy, terms of use, browser storage, accessibility conformance, and applicable data laws."
         actions={
           <Button variant="secondary" onClick={onExportJson}>
             Export workspace JSON
@@ -320,84 +320,6 @@ export function LegalPage({
               <div className="button-row">
                 <Button variant="danger" onClick={onClearBrowserData}>
                   Erase all local data
-                </Button>
-              </div>
-            </div>
-          </section>
-        </div>
-      ) : null}
-
-      {activeTab === "refunds" ? (
-        <div
-          id="panel-refunds"
-          role="tabpanel"
-          aria-labelledby="tab-refunds"
-          className="settings-list"
-        >
-          <section className="settings-row">
-            <div className="settings-row__info">
-              <h2>Fee & license schedule</h2>
-              <p>Complete pricing and licensing breakdown for this open-source workbench.</p>
-            </div>
-            <div className="settings-panel">
-              <dl className="kv-list">
-                <div className="kv-row">
-                  <dt>Software license</dt>
-                  <dd>MIT License (perpetual, royalty-free)</dd>
-                </div>
-                <div className="kv-row">
-                  <dt>Purchase or subscription fee</dt>
-                  <dd>$0.00 USD / INR 0 (free open-source software)</dd>
-                </div>
-                <div className="kv-row">
-                  <dt>In-app purchases or usage metering</dt>
-                  <dd>None (all features run locally without paywalls)</dd>
-                </div>
-                <div className="kv-row">
-                  <dt>Card billing & payment processor</dt>
-                  <dd>None connected (no payment data collected)</dd>
-                </div>
-              </dl>
-            </div>
-          </section>
-
-          <section className="settings-row">
-            <div className="settings-row__info">
-              <h2>Refund & unauthorized-charge terms</h2>
-              <p>Clear consumer protection guidance regarding third-party listings and forks.</p>
-            </div>
-            <div className="settings-panel settings-prose">
-              <p>
-                <strong>Zero maintainer charges:</strong> Because PressureTest collects zero fees,
-                subscriptions, or deposits, the maintainer never holds customer funds.
-              </p>
-              <p>
-                <strong>Unauthorized third-party resellers:</strong> The maintainer does not sell
-                hosted access via third-party marketplaces. If a third party charged you for access
-                to an unmodified copy of PressureTest, request a chargeback through your payment
-                provider and report the listing via GitHub Issues.
-              </p>
-              <p>
-                <strong>Commercial forks:</strong> Any organization operating a paid hosted service
-                built from this repository must publish its own merchant legal identity, statutory
-                cancellation window, and refund procedure before collecting payment.
-              </p>
-            </div>
-          </section>
-
-          <section className="settings-row">
-            <div className="settings-row__info">
-              <h2>No vendor lock-in</h2>
-              <p>Export all research conversations and labels before closing or switching tools.</p>
-            </div>
-            <div className="settings-panel settings-actions-panel">
-              <p>
-                Every conversation and annotation can be downloaded in standard CSV or versioned
-                JSON format at no cost at any time.
-              </p>
-              <div className="button-row">
-                <Button variant="secondary" onClick={onExportJson}>
-                  Download portable JSON backup
                 </Button>
               </div>
             </div>

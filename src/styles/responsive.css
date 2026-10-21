@@ -1,0 +1,555 @@
+@media (max-width: 1320px) {
+  .main-content {
+    padding-right: 27px;
+    padding-left: 27px;
+  }
+  .topbar {
+    padding-right: 27px;
+    padding-left: 27px;
+  }
+  .annotation-layout {
+    grid-template-columns: minmax(182px, 0.57fr) minmax(300px, 1.05fr) minmax(285px, 0.9fr);
+    gap: 10px;
+  }
+  .annotation-controls-panel {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .choice-option__copy small {
+    font-size: 7.5px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .annotation-layout {
+    grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1.38fr);
+    gap: 12px;
+  }
+  .annotation-queue-panel {
+    grid-row: 1 / span 2;
+  }
+  .annotation-controls-panel {
+    grid-column: 2;
+  }
+  .dashboard-lower-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.92fr);
+  }
+  .dataset-summary-row {
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+  }
+  .dataset-export-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .sidebar {
+    width: 72px;
+    align-items: center;
+    padding: 20px 9px 13px;
+  }
+  .brand {
+    margin: 0 0 25px;
+  }
+  .brand__wordmark,
+  .brand__version {
+    display: none;
+  }
+  .brand__mark {
+    width: 37px;
+    height: 37px;
+  }
+  .workspace-switcher {
+    justify-content: center;
+    width: 48px;
+    margin-bottom: 24px;
+    padding: 7px;
+  }
+  .workspace-switcher__copy,
+  .workspace-switcher__chevron {
+    display: none;
+  }
+  .sidebar-nav {
+    width: 100%;
+    align-items: center;
+  }
+  .sidebar-nav__section {
+    width: 100%;
+    align-items: center;
+  }
+  .sidebar-nav__label {
+    display: none;
+  }
+  .nav-item {
+    width: 48px;
+    justify-content: center;
+    padding: 0;
+  }
+  .nav-item > span:not(.nav-item__dot) {
+    display: none;
+  }
+  .nav-item__dot {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 5px;
+    height: 5px;
+  }
+  .privacy-card {
+    justify-content: center;
+    width: 44px;
+    padding: 8px;
+  }
+  .privacy-card > div {
+    display: none;
+  }
+  .sidebar-user {
+    justify-content: center;
+    width: 45px;
+    padding: 11px 0 0;
+  }
+  .sidebar-user > span:nth-child(2),
+  .sidebar-user__menu {
+    display: none;
+  }
+  .main-column {
+    margin-left: 72px;
+  }
+  .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workflow-strip {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .workflow-steps {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    padding: 25px 20px 48px;
+  }
+  .topbar {
+    padding: 0 20px;
+  }
+  .overview-hero {
+    min-height: 230px;
+    padding: 29px 28px;
+  }
+  .pressure-visual {
+    width: 200px;
+    height: 190px;
+    flex-basis: 200px;
+    margin-right: -4px;
+    transform: scale(0.86);
+  }
+  .dashboard-lower-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .analysis-comparison-grid,
+  .analysis-bottom-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sequence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sequence-card {
+    min-height: 145px;
+  }
+  .sequence-card > p {
+    min-height: 38px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sidebar {
+    position: sticky;
+    z-index: 30;
+    inset: auto;
+    display: flex;
+    width: 100%;
+    height: 58px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 13px;
+    border-right: 0;
+    border-bottom: 1px solid #e2e8e3;
+  }
+  .brand {
+    flex: 0 0 auto;
+    margin: 0 12px 0 0;
+  }
+  .brand__wordmark {
+    display: inline;
+    font-size: 15px;
+  }
+  .brand__version {
+    display: inline;
+  }
+  .brand__mark {
+    width: 30px;
+    height: 30px;
+  }
+  .workspace-switcher,
+  .sidebar-footer {
+    display: none;
+  }
+  .sidebar-nav {
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 3px;
+    overflow-x: auto;
+  }
+  .sidebar-nav__section {
+    display: contents;
+  }
+  .nav-item {
+    width: auto;
+    min-width: 36px;
+    height: 36px;
+    min-height: 36px;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 8px;
+  }
+  .nav-item > span:not(.nav-item__dot) {
+    display: inline;
+  }
+  .nav-item__dot {
+    position: static;
+    width: 5px;
+    height: 5px;
+    margin-left: 0;
+  }
+  .main-column {
+    margin-left: 0;
+  }
+  .topbar {
+    position: relative;
+    min-height: 55px;
+    padding: 0 16px;
+  }
+  .topbar__actions {
+    gap: 9px;
+  }
+  .main-content {
+    padding: 23px 16px 42px;
+  }
+  .save-alert {
+    padding: 10px 16px;
+  }
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+  }
+  .page-heading__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .annotation-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .annotation-queue-panel {
+    position: static;
+    max-height: none;
+    width: 100%;
+  }
+  .annotation-queue-list {
+    max-height: 245px;
+  }
+  .annotation-controls-panel {
+    width: 100%;
+  }
+  .annotation-bottom-note {
+    grid-template-columns: auto 1fr;
+  }
+  .annotation-bottom-note .text-link {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .dataset-summary-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dataset-export-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+  .dataset-browser__toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .dataset-browser__search {
+    width: 100%;
+  }
+  .dataset-browser__filters {
+    overflow-x: auto;
+  }
+  .analysis-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .taxonomy-sections {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .edge-case-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .modal-backdrop {
+    padding: 12px;
+  }
+  .modal-panel {
+    max-height: calc(100vh - 24px);
+  }
+  .modal-header {
+    padding: 17px 17px 13px;
+  }
+  .import-review,
+  .example-form {
+    padding: 15px 17px 18px;
+  }
+  .form-grid--three {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand__version {
+    display: none;
+  }
+  .brand__wordmark {
+    display: none;
+  }
+  .brand {
+    margin-right: 6px;
+  }
+  .sidebar-nav {
+    justify-content: flex-start;
+    gap: 2px;
+  }
+  .nav-item {
+    width: 38px;
+    min-width: 38px;
+    padding: 0;
+  }
+  .nav-item > span:not(.nav-item__dot) {
+    display: none;
+  }
+  .nav-item__dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .topbar__crumbs {
+    gap: 6px;
+    font-size: 9px;
+  }
+  .topbar__crumbs strong {
+    font-size: 9px;
+  }
+  .demo-pill {
+    display: none;
+  }
+  .saved-indicator {
+    display: none;
+  }
+  .topbar__actions .button > span:not(.button__icon) {
+    display: none;
+  }
+  .topbar__actions .button {
+    width: 34px;
+    min-height: 32px;
+    padding: 0;
+  }
+  .main-content {
+    padding: 20px 12px 38px;
+  }
+  .page-heading h1 {
+    font-size: 27px;
+  }
+  .page-heading__description {
+    font-size: 11px;
+  }
+  .overview-hero {
+    min-height: 250px;
+    padding: 23px 20px;
+  }
+  .overview-hero h1 {
+    max-width: 370px;
+    font-size: 32px;
+  }
+  .overview-hero__description {
+    max-width: 325px;
+    font-size: 11px;
+  }
+  .pressure-visual {
+    position: absolute;
+    right: -67px;
+    bottom: -24px;
+    width: 185px;
+    height: 185px;
+    margin: 0;
+    opacity: 0.28;
+    transform: scale(0.85);
+  }
+  .hero-microcopy {
+    font-size: 8px;
+  }
+  .overview-hero__actions {
+    gap: 10px;
+  }
+  .sample-notice {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .sample-notice > span {
+    flex-basis: calc(100% - 30px);
+  }
+  .sample-notice button {
+    margin-left: 25px;
+  }
+  .stat-grid {
+    gap: 8px;
+  }
+  .stat-card {
+    padding: 12px 11px;
+  }
+  .stat-card__value {
+    font-size: 23px;
+  }
+  .stat-card__detail {
+    font-size: 8px;
+  }
+  .workflow-strip {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .workflow-steps {
+    width: 100%;
+    justify-content: space-between;
+    gap: 7px;
+  }
+  .workflow-steps span {
+    gap: 4px;
+    font-size: 8px;
+  }
+  .workflow-steps i {
+    display: none;
+  }
+  .annotation-progress-chip {
+    min-height: 32px;
+  }
+  .annotation-queue-panel {
+    padding: 11px 9px 8px;
+  }
+  .conversation-card__header {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+  .conversation-card__meta {
+    gap: 4px;
+    font-size: 7px;
+  }
+  .case-counter {
+    font-size: 7px;
+  }
+  .conversation-timeline {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .conversation-timeline__line {
+    left: 26px;
+  }
+  .conversation-turn {
+    grid-template-columns: 29px minmax(0, 1fr);
+    gap: 7px;
+  }
+  .reference-answer {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .annotation-controls-panel {
+    padding: 14px 11px 11px;
+  }
+  .annotation-bottom-note {
+    gap: 8px;
+    padding: 9px;
+  }
+  .dataset-summary-row {
+    gap: 7px;
+  }
+  .dataset-summary-card {
+    min-height: 61px;
+    gap: 7px;
+    padding: 8px;
+  }
+  .dataset-summary-card__icon {
+    width: 26px;
+    height: 26px;
+  }
+  .dataset-summary-card strong {
+    font-size: 15px;
+  }
+  .dataset-export-actions {
+    flex-wrap: wrap;
+    min-height: 39px;
+  }
+  .dataset-browser__filters button {
+    padding: 0 7px;
+    font-size: 8px;
+  }
+  .dataset-browser__caption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .dataset-table {
+    min-width: 790px;
+  }
+  .analysis-primary-card,
+  .analysis-tone-card {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .analysis-primary-card__foot,
+  .analysis-tone-card__note {
+    margin-right: -16px;
+    margin-left: -16px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .sequence-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sequence-card {
+    min-height: auto;
+  }
+  .sequence-card > p {
+    min-height: auto;
+  }
+  .guideline-sequence,
+  .edge-case-panel {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  .form-grid--three {
+    grid-template-columns: 1fr;
+  }
+  .modal-actions--spread {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+  .modal-actions--spread > div {
+    justify-content: flex-end;
+  }
+  .recovery-card {
+    padding: 25px 20px;
+  }
+}

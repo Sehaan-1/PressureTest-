@@ -1,0 +1,121 @@
+:root {
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #21332c;
+  background: #f6f7f5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #21332c;
+  --ink-strong: #16251f;
+  --ink-soft: #51635b;
+  --muted: #7b8882;
+  --muted-light: #9aa59f;
+  --line: #e4e9e5;
+  --line-strong: #d8dfda;
+  --paper: #ffffff;
+  --canvas: #f6f7f5;
+  --canvas-dark: #edf1ed;
+  --green: #27664f;
+  --green-dark: #1f503f;
+  --green-deep: #173d31;
+  --green-pale: #e5f0e9;
+  --green-wash: #f1f7f3;
+  --coral: #d66b50;
+  --coral-pale: #fbede8;
+  --amber: #b7792c;
+  --amber-pale: #fff4df;
+  --blue: #4d7290;
+  --blue-pale: #eaf1f6;
+  --lavender: #76669d;
+  --lavender-pale: #f0edfa;
+  --shadow-card: 0 2px 12px rgb(29 47 38 / 3%), 0 1px 2px rgb(29 47 38 / 3%);
+  --shadow-float: 0 20px 60px rgb(22 37 31 / 18%);
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 13px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgb(39 102 79 / 32%);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #cfe6d7;
+  color: var(--green-deep);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.eyebrow {
+  margin: 0;
+  color: #819087;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--green);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.text-link:hover {
+  color: var(--green-deep);
+}

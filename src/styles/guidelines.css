@@ -1,0 +1,373 @@
+.guidelines-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.guidelines-version {
+  display: inline-flex;
+  min-height: 33px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px;
+  border: 1px solid #e4e9e5;
+  border-radius: 7px;
+  background: #fff;
+  color: #7b8980;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+.guidelines-version svg {
+  color: #81958a;
+}
+
+.guideline-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 17px;
+  border: 1px solid #dce8dd;
+  border-radius: 11px;
+  background: linear-gradient(100deg, #f0f7f1 0%, #f7faf6 100%);
+}
+
+.guideline-callout__icon {
+  display: grid;
+  width: 33px;
+  height: 33px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9px;
+  background: #e3efe5;
+  color: #588061;
+}
+
+.guideline-callout > div strong {
+  color: #46644d;
+  font-size: 11px;
+}
+
+.guideline-callout p {
+  margin: 4px 0 0;
+  color: #718379;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.guideline-callout em {
+  color: #406548;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.guideline-sequence {
+  padding: 17px 18px 18px;
+  border: 1px solid #e5ebe6;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.guideline-sequence__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.guideline-sequence__heading > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #9aa59d;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.sequence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.sequence-card {
+  position: relative;
+  min-height: 160px;
+  padding: 13px 12px 11px;
+  border: 1px solid #edf0ed;
+  border-radius: 9px;
+  background: #fcfdfc;
+}
+
+.sequence-card__number {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #c2cbc4;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.sequence-card__icon {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border-radius: 8px;
+}
+
+.sequence-card__icon--blue {
+  background: #edf3f7;
+  color: #65829a;
+}
+.sequence-card__icon--mint {
+  background: #eaf4ec;
+  color: #62886c;
+}
+.sequence-card__icon--coral {
+  background: #fbefea;
+  color: #c67a59;
+}
+.sequence-card__icon--lavender {
+  background: #f1eef8;
+  color: #7e70a0;
+}
+
+.sequence-card h2 {
+  margin: 10px 0 4px;
+  color: #45574c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.sequence-card > p {
+  min-height: 47px;
+  margin: 0;
+  color: #89958d;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.sequence-card__rule {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid #edf0ed;
+  color: #6b8172;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.taxonomy-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.taxonomy-section {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #e5ebe6;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.taxonomy-section__heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+
+.taxonomy-section__index {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 8px;
+  background: #eff4ef;
+  color: #72877a;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.taxonomy-section__heading h2 {
+  margin: 3px 0 0;
+  color: #364a3e;
+  font-size: 14px;
+  letter-spacing: -0.035em;
+}
+
+.taxonomy-section__heading .eyebrow {
+  font-size: 7px;
+}
+
+.taxonomy-card-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.taxonomy-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 3px;
+  border-top: 1px solid #f0f2f0;
+}
+
+.taxonomy-card__marker {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  margin: 4px 0 0 2px;
+  border-radius: 50%;
+  background: #6b9b77;
+}
+
+.taxonomy-card__marker--incorrect,
+.taxonomy-card__marker--caved_incorrectly {
+  background: #d47b5c;
+}
+.taxonomy-card__marker--partially_correct,
+.taxonomy-card__marker--hedged {
+  background: #927fb0;
+}
+.taxonomy-card__marker--corrected_justifiably {
+  background: #6c91a5;
+}
+.taxonomy-card__marker--pushback {
+  background: #c49a60;
+}
+.taxonomy-card__marker--tone {
+  background: #8b7eac;
+}
+
+.taxonomy-card > div {
+  min-width: 0;
+}
+
+.taxonomy-card strong {
+  color: #53645a;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.taxonomy-card p {
+  margin: 2px 0 0;
+  color: #909c94;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.edge-case-panel {
+  padding: 17px 18px;
+  border: 1px solid #e5ebe6;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.edge-case-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.edge-case-panel__header > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 8px;
+  background: #faf3e7;
+  color: #b08345;
+}
+
+.edge-case-panel__header h2 {
+  margin: 3px 0 0;
+  color: #43554a;
+  font-size: 14px;
+  letter-spacing: -0.03em;
+}
+
+.edge-case-panel__header .eyebrow {
+  font-size: 7px;
+}
+
+.edge-case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 22px;
+}
+
+.edge-case-grid article {
+  display: flex;
+  gap: 9px;
+  padding: 10px 0;
+  border-top: 1px solid #eff2ef;
+}
+
+.edge-case-grid article > span {
+  color: #b1bbb4;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.edge-case-grid article strong {
+  color: #58695f;
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.edge-case-grid article p {
+  margin: 3px 0 0;
+  color: #8b9890;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.edge-case-grid em {
+  color: #647a69;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.guideline-footer-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px 13px;
+  border: 1px solid #f0e5d3;
+  border-radius: 9px;
+  background: #fcf9f3;
+}
+
+.guideline-footer-note__icon {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 6px;
+  background: #f5eddc;
+  color: #a27f48;
+}
+
+.guideline-footer-note p {
+  margin: 0;
+  color: #83765f;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.guideline-footer-note strong {
+  color: #6d5d40;
+}
